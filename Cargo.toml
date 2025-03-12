@@ -1,0 +1,22 @@
+[package]
+license = "MIT"
+edition = "2024"
+version = "0.1.1"
+readme = "README.md"
+name = "openai_responses"
+authors = ["Miguel Piedrafita <rust@miguel.build>"]
+description = "Rust SDK for the OpenAI Responses API"
+homepage = "https://github.com/m1guelpf/openai-responses-rs"
+keywords = ["openai", "async", "openapi", "ai", "responses"]
+repository = "https://github.com/m1guelpf/openai-responses-rs"
+categories = ["api-bindings", "web-programming", "asynchronous"]
+
+[dependencies]
+thiserror = "2.0.12"
+serde_json = "1.0.140"
+chrono = { version = "0.4.40", features = ["serde"] }
+serde = { version = "1.0.219", features = ["derive"] }
+reqwest = { version = "0.12.13", features = ["json"] }
+
+[dev-dependencies]
+tokio = { version = "1.44.0", features = ["macros", "rt", "rt-multi-thread"] }
