@@ -2,6 +2,7 @@ pub mod config;
 pub mod item;
 pub mod request;
 pub mod response;
+#[cfg(feature = "stream")]
 pub mod stream;
 pub mod tools;
 
@@ -9,6 +10,7 @@ pub use config::*;
 pub use item::*;
 pub use request::*;
 pub use response::*;
+#[cfg(feature = "stream")]
 pub use stream::*;
 pub use tools::*;
 

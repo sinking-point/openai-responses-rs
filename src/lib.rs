@@ -2,16 +2,20 @@
 #![allow(clippy::doc_markdown)]
 #![doc = include_str!("../README.md")]
 
-use async_fn_stream::try_fn_stream;
-use futures::{Stream, StreamExt};
 use reqwest::{
     Client as Http, StatusCode,
     header::{self, HeaderMap, HeaderValue},
 };
-use reqwest_eventsource::{Event as EventSourceEvent, RequestBuilderExt};
 use serde_json::json;
 use std::env;
-use types::{Error, Event, Include, InputItemList, Request, Response, ResponseResult};
+use types::{Error, Include, InputItemList, Request, Response, ResponseResult};
+#[cfg(feature = "stream")]
+use {
+    async_fn_stream::try_fn_stream,
+    futures::{Stream, StreamExt},
+    reqwest_eventsource::{Event as EventSourceEvent, RequestBuilderExt},
+    types::Event,
+};
 
 /// Types for interacting with the Responses API.
 pub mod types;
@@ -37,6 +41,7 @@ pub enum CreateError {
     ApiKeyNotFound,
 }
 
+#[cfg(feature = "stream")]
 #[derive(Debug, thiserror::Error)]
 pub enum StreamError {
     #[error("{0}")]
@@ -105,6 +110,7 @@ impl Client {
         response.json::<ResponseResult>().await.map(Into::into)
     }
 
+    #[cfg(feature = "stream")]
     /// Creates a model response and streams it back as it is generated.
     ///
     /// Provide [text](https://platform.openai.com/docs/guides/text) or [image](https://platform.openai.com/docs/guides/images) inputs to generate [text](https://platform.openai.com/docs/guides/text) or [JSON](https://platform.openai.com/docs/guides/structured-outputs) outputs.
