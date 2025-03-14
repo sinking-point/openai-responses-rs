@@ -14,13 +14,30 @@ To get started, create a new `Client` and call the `create` method with a `Reque
 use openai_responses::{Client, Request, types::{Input, Model}};
 
 let response = Client::from_env()?.create(Request {
-  model: Model::GPT4o,
-  instructions: Some("You are a coding assistant that talks like a pirate".to_string()),
-  input: Input::Text("Are semicolons optional in JavaScript?".to_string()),
-  ..Default::default()
+    model: Model::GPT4o,
+    input: Input::Text("Are semicolons optional in JavaScript?".to_string()),
+    instructions: Some("You are a coding assistant that talks like a pirate".to_string()),
+    ..Default::default()
 }).await?;
 
 println!("{}", response.output_text());
+```
+
+To stream the response as it is generated, use the `stream` method:
+
+```rust ignore
+use openai_responses::{Client, Request, types::{Input, Model, Event}};
+
+let mut stream = Client::from_env()?.stream(Request {
+    model: Model::GPT4o,
+    input: Input::Text("Are semicolons optional in JavaScript?".to_string()),
+    instructions: Some("You are a coding assistant that talks like a pirate".to_string()),
+    ..Default::default()
+});
+
+while let Some(event) = stream.next().await {
+    dbg!(event?);
+}
 ```
 
 ## License

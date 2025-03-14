@@ -2,12 +2,14 @@ pub mod config;
 pub mod item;
 pub mod request;
 pub mod response;
+pub mod stream;
 pub mod tools;
 
 pub use config::*;
 pub use item::*;
 pub use request::*;
 pub use response::*;
+pub use stream::*;
 pub use tools::*;
 
 /// The model to use for generating a response.

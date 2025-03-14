@@ -63,7 +63,7 @@ pub struct Response {
     /// The truncation strategy to use for the model response.
     pub truncation: Truncation,
     /// Represents token usage details including input tokens, output tokens, a breakdown of output tokens, and the total tokens used.
-    pub usage: Usage,
+    pub usage: Option<Usage>,
     /// Whether the response was stored on OpenAI's server for later retrieval.
     pub store: bool,
     /// A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. [Learn more](https://platform.openai.com/docs/guides/safety-best-practices#end-user-ids).
