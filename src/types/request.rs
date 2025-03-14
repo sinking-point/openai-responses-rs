@@ -1,3 +1,4 @@
+use macon::Builder;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
@@ -7,7 +8,7 @@ use super::{
 };
 
 /// The Request object.
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Builder, Serialize, Deserialize)]
 pub struct Request {
     /// Model ID used to generate the response.
     /// OpenAI offers a wide range of models with different capabilities, performance characteristics, and price points. Refer to the [model guide](https://platform.openai.com/docs/models) to browse and compare available models.

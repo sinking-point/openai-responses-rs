@@ -1,3 +1,4 @@
+use macon::Builder;
 use serde::{Deserialize, Serialize};
 
 /// The truncation strategy to use for the model response.
@@ -16,7 +17,7 @@ pub enum Truncation {
 /// Learn more:
 /// - [Text inputs and outputs](https://platform.openai.com/docs/guides/text)
 /// - [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs)
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Builder, Default, Serialize, Deserialize)]
 pub struct TextConfig {
     /// An object specifying the format that the model must output.
     pub format: TextFormat,
@@ -50,7 +51,7 @@ pub enum TextFormat {
 
 /// Configuration options for [reasoning models](https://platform.openai.com/docs/guides/reasoning).
 /// Only available for o-series models.
-#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+#[derive(Debug, Clone, Default, Builder, Serialize, Deserialize)]
 pub struct ReasoningConfig {
     /// Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
     pub effort: Option<ReasoningEffort>,

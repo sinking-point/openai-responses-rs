@@ -26,14 +26,16 @@ println!("{}", response.output_text());
 To stream the response as it is generated, use the `stream` method:
 
 ```rust ignore
-use openai_responses::{Client, Request, types::{Input, Model, Event}};
+use openai_responses::{Client, Request};
 
-let mut stream = Client::from_env()?.stream(Request {
-    model: Model::GPT4o,
-    input: Input::Text("Are semicolons optional in JavaScript?".to_string()),
-    instructions: Some("You are a coding assistant that talks like a pirate".to_string()),
-    ..Default::default()
-});
+// You can also build the `Request` struct with a fluent interface
+let mut stream = Client::from_env()?.stream(
+    Request::builder()
+        .model("gpt-4o")
+        .input("Are semicolons optional in JavaScript?")
+        .instructions("You are a coding assistant that talks like a pirate")
+        .build()
+);
 
 while let Some(event) = stream.next().await {
     dbg!(event?);
