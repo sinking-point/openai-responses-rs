@@ -34,7 +34,10 @@ pub struct Request {
     pub reasoning: Option<ReasoningConfig>,
     /// Whether to store the generated model response for later retrieval via API.
     pub store: Option<bool>,
-    /// If set to true, the model response data will be streamed to the client as it is generated using[ server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#event_stream_format).
+    /// If set to true, the model response data will be streamed to the client as it is generated using [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#event_stream_format).
+    ///
+    /// This flag is automatically set depending on the function you call, so it's best to not touch it.
+    #[doc(hidden)]
     pub stream: Option<bool>,
     /// What sampling temperature to use, between 0 and 2.
     /// Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
