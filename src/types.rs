@@ -22,6 +22,8 @@ pub enum Model {
     o1,
     #[serde(rename = "o1-mini")]
     o1Mini,
+    #[serde(rename = "o1-pro")]
+    o1Pro,
     #[serde(rename = "o3-mini")]
     o3Mini,
     #[serde(rename = "gpt-4.5-preview")]
