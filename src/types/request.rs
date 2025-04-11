@@ -182,6 +182,7 @@ pub enum ContentItem {
 
 /// The detail level of the image sent to the model.
 #[derive(Debug, Clone, Copy, Default, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
 pub enum ImageDetail {
     #[default]
     Auto,
