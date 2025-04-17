@@ -21,6 +21,7 @@ use {
 pub mod types;
 
 /// The OpenAI Responses API Client.
+#[derive(Debug, Clone)]
 pub struct Client {
     client: reqwest::Client,
 }
