@@ -20,6 +20,7 @@ pub enum OutputItem {
     #[serde(rename = "computer_call")]
     ComputerToolCall(ComputerToolCall),
     /// A tool call to generate an image. See the [image generation guide](https://platform.openai.com/docs/guides/image-generation) for more information.
+    #[serde(rename = "image_generation_call")]
     ImageGeneration(ImageGenerationCall),
     /// A description of the chain of thought used by a reasoning model while generating a response.
     Reasoning(Reasoning),
@@ -58,6 +59,7 @@ pub enum InputItem {
     #[serde(rename = "web_search_call")]
     WebSearchResults(WebSearchCall),
     /// A tool call to generate an image. See the [image generation guide](https://platform.openai.com/docs/guides/image-generation) for more information.
+    #[serde(rename = "image_generation_call")]
     ImageGeneration(ImageGenerationCall),
     /// A tool call to run a function.
     ///
