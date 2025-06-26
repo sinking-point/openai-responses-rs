@@ -322,6 +322,40 @@ impl Client {
             .json()
             .await
     }
+
+    /// Sends the request and returns the raw response body **without** attempting to deserialize it.
+    ///
+    /// This helper is intended for debugging situations where the SDK fails to deserialize
+    /// the response (for example because the API returned an unexpected error schema).
+    /// The function prints the status code and entire body to stdout so it is easy to see
+    /// what was actually received from the server.
+    ///
+    /// NOTE: Because this function is meant only for debugging it intentionally returns the
+    /// body as a plain `String` instead of the strongly-typed [`Response`] / [`Error`] types.
+    /// It otherwise behaves exactly like [`Client::create`]: it sets `stream = false` on the
+    /// request and sends it to `https://api.openai.com/v1/responses`.
+    pub async fn create_raw(
+        &self,
+        mut request: Request,
+    ) -> Result<(reqwest::StatusCode, String), reqwest::Error> {
+        // Ensure we get a regular HTTP response (not SSE stream)
+        request.stream = Some(false);
+
+        let resp = self
+            .client
+            .post("https://api.openai.com/v1/responses")
+            .json(&request)
+            .send()
+            .await?;
+
+        let status = resp.status();
+        let body = resp.text().await?;
+
+        // Dump everything to stdout so users can copy-paste it for inspection
+        println!("===== OpenAI raw response ({status}) =====\n{body}\n==========================================");
+
+        Ok((status, body))
+    }
 }
 
 #[cfg(test)]
